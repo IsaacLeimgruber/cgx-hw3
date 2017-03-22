@@ -27,16 +27,16 @@ void main() {
 
     // 3) compute the view direction view_dir.
     vec3 view_dir = -normalize(vpoint_mv.xyz);
-    float cosNL = dot(normal_mv, light_dir);
+
     // 4) compute per vertex color
-    vec3 r = normalize(2*normal_mv*dot(normal_mv, light_dir) - light_dir);
+    float cosNL = dot(normal_mv, light_dir);
+    vec3 reflexion_dir = normalize(2 * normal_mv * cosNL - light_dir);
+    vcolor = (ka * La);
+
+    //filter light rays that get reflected through the surface
     if(cosNL > 0){
-    vcolor = (ka*La) + (kd*max(0, dot(normal_mv, light_dir))*Ld) + (ks*pow(max(0, dot(r, view_dir)),alpha)*Ls);
-    }else{
-        vcolor = vec3(0.f, 0.f, 0.f);
+        vcolor += (kd * cosNL * Ld) + (ks * pow(max(0, dot(reflexion_dir, view_dir)), alpha) * Ls);
     }
-
-
 
     //<<<<<<<<<< TODO <<<<<<<<<<<
 }

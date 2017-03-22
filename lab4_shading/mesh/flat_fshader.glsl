@@ -18,8 +18,16 @@ void main() {
     /// 3) compute specular term.
     ///<<<<<<<<<< TODO <<<<<<<<<<<
     vec3 triangle_normal = normalize(cross(dFdx(vpoint_mv.xyz), dFdy(vpoint_mv.xyz)));
-    float dotNL = dot(triangle_normal, light_dir);
-    vec3 r = normalize(2*triangle_normal*dotNL - light_dir);
-    color = (ka*La) + (kd*max(0, dotNL)*Ld) +
-            (ks*pow(max(0, dot(r, view_dir)),alpha)*Ls);
+    float cosNL = dot(triangle_normal, light_dir);
+    vec3 r = normalize(2 * triangle_normal * cosNL - light_dir);
+    color = (ka * La);
+
+
+    if(cosNL > 0){
+        color +=
+            //diffuse
+            (kd * cosNL * Ld) +
+            //specular
+            (ks * pow(max(0, dot(r, view_dir)), alpha) * Ls);
+    }
 }

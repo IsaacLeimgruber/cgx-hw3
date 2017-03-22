@@ -19,15 +19,21 @@ void main() {
     // TODO 5: Spot light.
     // Complete the shader to obtain spot light effect
     //<<<<<<<<<< TODO <<<<<<<<<<<
-    float cos_angle = dot(normalize(spot_dir), normalize(view_dir));
-    float spot_eff = pow(dot(normalize(light_dir), normalize(spot_dir)), spot_exp);
-    vec3 r = normalize(2*normal_mv*dot(normal_mv, light_dir) - light_dir);
-    vec3 phong = (ka*La) + (kd*max(0, dot(normal_mv, light_dir))*Ld) +
-            (ks*pow(max(0, dot(r, view_dir)),alpha)*Ls);
-    if(cos_angle > spot_cos_cutoff){
-        color = phong * spot_eff;
-    }else{
-        color = vec3(0.f);
-    }
+    float cos_angle = dot(normalize(spot_dir), normalize(light_dir));
+    float spot_eff = pow(cos_angle, spot_exp);
+    float cosNL = dot(normal_mv, light_dir);
+    vec3 reflexion_dir = normalize(2 * normal_mv * cosNL - light_dir);
+    vec3 phong = (kd * max(0, cosNL) * Ld) +
+                 (ks * pow(max(0, dot(reflexion_dir, view_dir)), alpha) * Ls);
 
+    /* Since we want some ambient lighting even outside the cone,
+     * we took the ambiant component outside the phong shading so
+     * it is added only once, even if the point is inside the area
+     * lighted by the spot.
+     */
+    color = (ka * La);
+
+    //filter light rays that get reflected through the surface
+    if((cos_angle > spot_cos_cutoff) && (cosNL > 0)){
+        color += phong * spot_eff;
 }

@@ -18,10 +18,13 @@ void main() {
     //    texture sampler tex.
     //<<<<<<<<<< TODO <<<<<<<<<<<
 
-    float dotNL = max(0, dot(normal_mv, light_dir));
-    vec3 r = normalize(2*normal_mv*dot(normal_mv, light_dir) - light_dir);
-    float dotRVa = pow(max(0, dot(r, view_dir)),alpha);
+    float cosNL = max(0, dot(normal_mv, light_dir));
+    vec3 reflexion_dir = normalize(2*normal_mv*cosNL - light_dir);
+    float cosRVa = pow(max(0, dot(reflexion_dir, view_dir)), alpha);
+    color = vec3(0.f);
 
-    color = texture(tex2D, vec2(dotNL, dotRVa)).rgb;
-
+    //filter light rays that get reflected through the surface
+    if(cosNL > 0){
+        color = texture(tex2D, vec2(cosNL, cosRVa)).rgb;
+    }
 }
