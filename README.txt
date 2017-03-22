@@ -34,5 +34,4 @@ The light dir is the (normalized) vector from `vpoint` to light position. The vi
 Here, unlike previously, we compute the normal at each fragment using the point coordinates' derivatives. Therefore every point in the same triangle have the same associated (triangle's) normal vector, resulting in a flat shading.
 
 ## 5 Spoth Light Shading
-This part relies heavily on the cosinus computated from the spotlight direction and the view direction.
-We then used geometric formulas to compute the angle between the cone main axe and alter the points' phong shading accordingly.
+We calculate the cosinus of the angle between the spot_dir vector and the vector from the point to the spot (light_dir). This value will be bigger than the cutoff if it is in the cone, smaller otherwise. We attenuate apropriately the lighting of the point in the cone and add an ambient lighting everwhere
