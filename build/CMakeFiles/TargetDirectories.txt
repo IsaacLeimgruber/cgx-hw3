@@ -1,7 +1,0 @@
-C:/icg17_lab4/build/CMakeFiles/common_headers.dir
-C:/icg17_lab4/build/CMakeFiles/edit_cache.dir
-C:/icg17_lab4/build/CMakeFiles/rebuild_cache.dir
-C:/icg17_lab4/build/lab4_shading/CMakeFiles/rebuild_cache.dir
-C:/icg17_lab4/build/lab4_shading/CMakeFiles/copy_shaders_lab4_shading.dir
-C:/icg17_lab4/build/lab4_shading/CMakeFiles/edit_cache.dir
-C:/icg17_lab4/build/lab4_shading/CMakeFiles/lab4_shading.dir
