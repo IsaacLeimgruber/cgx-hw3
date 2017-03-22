@@ -36,4 +36,5 @@ void main() {
     //filter light rays that get reflected through the surface
     if((cos_angle > spot_cos_cutoff) && (cosNL > 0)){
         color += phong * spot_eff;
+    }
 }
