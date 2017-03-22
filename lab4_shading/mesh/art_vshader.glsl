@@ -17,6 +17,7 @@ void main() {
     mat4 MV = view * model;
     vec4 vpoint_mv = MV * vec4(vpoint, 1.0);
     gl_Position = projection * vpoint_mv;
+
     //>>>>>>>>>> TODO >>>>>>>>>>>
     // TODO: Artistic shading.
     /// 1) compute normal_mv using the model_view matrix.
